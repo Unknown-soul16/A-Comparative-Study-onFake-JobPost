@@ -1,0 +1,25 @@
+window.onload = function() {
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    title: {
+      text: ""
+    },
+    axisY: {
+      minimum: 1,    // Set the y-axis to start from 1
+      maximum: 100,  // Set the y-axis to end at 100
+      interval: 10   // Set the interval between tick marks to 10
+    },
+    data: [{
+      type: "bar",
+      startAngle: 240,
+      yValueFormatString: "##0.00\"%\"",
+      indexLabel: "{label} {y}",
+      dataPoints: [
+        {% for o in form %}
+          { y: {{ o.dcount }}, label: "{{ o.names }}" },
+        {% endfor %}
+      ]
+    }]
+  });
+  chart.render();
+}
